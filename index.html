@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños, Patrona Evee! ✨</title>
+    <!-- Google Fonts para tipografía elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+    <!-- Canvas para efecto de confeti y chispas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Indicador de ayuda exterior y control de música -->
+    <div class="hint-text">
+        <span class="hint-open">Haz clic en la tarjeta para abrirla</span>
+        <span class="hint-close">Haz clic fuera de la tarjeta para cerrarla</span>
+    </div>
+
+    <!-- Botón flotante para música -->
+    <button id="btnMusica" class="btn-musica" onclick="toggleMusica(event)" title="Música de cumpleaños">
+        <span id="iconoMusica">🎵</span>
+    </button>
+
+    <!-- Contenedor principal 3D -->
+    <div class="card-scene">
+        <div id="tarjeta" class="tarjeta" onclick="abrirTarjeta(event)">
+
+            <!-- Tapa / Portada abatible (Front y Back) -->
+            <div class="tapa">
+                <!-- Cara frontal (Portada exterior con la imagen) -->
+                <div class="cara front-portada">
+                    <img src="portada.jpeg" alt="Portada de Feliz Cumpleaños" class="img-portada">
+                    <div class="brillo-portada"></div>
+                    <div class="sello-cera">
+                        <span>Toca para abrir</span>
+                    </div>
+                </div>
+
+                <!-- Cara trasera de la tapa (Interior izquierdo al abrir) -->
+                <div class="cara back-portada">
+                    <div class="decoracion-borde-interior"></div>
+                    <div class="contenido-interior-izq">
+                        <div class="icono-decorativo">📜 🖋️</div>
+                        <p class="frase-inspiradora">
+                            "Escribir es pintar con palabras lo que el alma siente..."
+                        </p>
+                        <div class="decoracion-lineas">✦ ✦ ✦</div>
+                        <p class="dedicatoria-corta">
+                            Que tu imaginación siga creando magia inolvidable en cada página.
+                        </p>
+                        <div class="icono-corazon">💖</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Base / Interior derecho (Contiene la carta) -->
+            <div class="interior-derecho">
+                <div class="hoja-carta">
+                    <div class="encabezado-carta">
+                        <span class="fecha-especial">Un día muy especial ✨</span>
+                        <h3 class="saludo-carta">¡Feliz cumpleaños, Patrona Evee!</h3>
+                    </div>
+
+                    <div class="cuerpo-carta">
+                        <p>Hoy es un día muy especial porque celebramos la vida de una persona con un talento
+                            extraordinario.</p>
+
+                        <p><strong>Querida Evee</strong>, admiro muchísimo la forma en que escribes; tienes una
+                            sensibilidad única para plasmar las emociones, y cada historia que creas es un verdadero
+                            placer de leer. Tu mente es mágica, cuidas cada detalle y haces que cada <em>ship</em> cobre
+                            vida de una manera hermosa y profunda.</p>
+
+                        <p>Sé perfectamente cuánto amas escribir, y no tengo duda de que, al igual que en tus historias,
+                            tú te esfuerzas cada día para superar tus propios límites y regalarnos mundos increíbles a
+                            través de tus palabras.</p>
+                    </div>
+
+                    <div class="pie-carta">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
