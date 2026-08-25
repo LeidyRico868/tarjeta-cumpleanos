@@ -1,5 +1,7 @@
 /* Reset y variables de diseño */
 :root {
+    --card-width: 360px;
+    --card-height: 510px;
     --color-fondo: #1a162b;
     --color-portada-grad1: #6a11cb;
     --color-portada-grad2: #2575fc;
@@ -18,17 +20,24 @@
     padding: 0;
 }
 
-body {
+html, body {
+    width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: radial-gradient(circle at center, #2e1d4d 0%, #120e24 100%);
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
     position: relative;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding: 10px;
 }
 
 /* Canvas para lluvia de confeti */
@@ -44,19 +53,28 @@ body {
 
 /* Texto de ayuda interactivo */
 .hint-text {
-    position: absolute;
-    top: 25px;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 0.95rem;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.88rem;
     letter-spacing: 0.5px;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 7px 18px;
     border-radius: 30px;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 215, 0, 0.25);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
-    z-index: 50;
+    z-index: 100;
+    pointer-events: none;
+    text-align: center;
+    max-width: calc(100vw - 120px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hint-close {
@@ -74,22 +92,22 @@ body.tarjeta-abierta .hint-close {
 /* Botón flotante de control de música */
 .btn-musica {
     position: fixed;
-    top: 22px;
-    right: 25px;
-    width: 44px;
-    height: 44px;
+    top: 18px;
+    right: 18px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1.5px solid rgba(255, 215, 0, 0.45);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 215, 0, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: #fff;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     z-index: 150;
     outline: none;
@@ -117,17 +135,20 @@ body.tarjeta-abierta .hint-close {
 
 /* Escenario 3D de la tarjeta */
 .card-scene {
-    width: 370px;
-    height: 520px;
-    perspective: 2200px;
-    margin: 20px auto;
-    transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1);
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 2000px;
+    margin: 15px auto;
+    transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1), width 0.6s ease, height 0.6s ease;
     transform-origin: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Al abrirse, desplazamos exactamente la mitad del ancho para centrar el libro abierto de 2 páginas */
+/* Al abrirse en pantallas grandes, desplazamos la mitad del ancho para centrar el libro */
 body.tarjeta-abierta .card-scene {
-    transform: translateX(185px);
+    transform: translateX(calc(var(--card-width) / 2));
 }
 
 /* Contenedor de la Tarjeta */
@@ -285,16 +306,17 @@ body.tarjeta-abierta .card-scene {
     justify-content: center;
     align-items: center;
     color: #4a4a4a;
-    padding: 28px;
+    padding: 24px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .decoracion-borde-interior {
     position: absolute;
-    top: 14px;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
     border: 1px solid rgba(212, 175, 55, 0.35);
     border-radius: 8px;
     pointer-events: none;
@@ -303,38 +325,39 @@ body.tarjeta-abierta .card-scene {
 .contenido-interior-izq {
     text-align: center;
     z-index: 2;
+    width: 100%;
 }
 
 .icono-decorativo {
-    font-size: 2.2rem;
-    margin-bottom: 16px;
+    font-size: 2rem;
+    margin-bottom: 14px;
 }
 
 .frase-inspiradora {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 1.12rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.55;
     color: #5d4037;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .decoracion-lineas {
     color: var(--color-oro-suave);
-    font-size: 0.9rem;
-    letter-spacing: 6px;
-    margin-bottom: 18px;
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+    margin-bottom: 14px;
 }
 
 .dedicatoria-corta {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     color: #7f8c8d;
-    margin-bottom: 22px;
+    margin-bottom: 16px;
 }
 
 .icono-corazon {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     animation: heartbeat 2s infinite ease-in-out;
 }
 
@@ -358,20 +381,22 @@ body.tarjeta-abierta .card-scene {
     overflow: hidden;
     z-index: 5;
     cursor: default;
+    box-sizing: border-box;
 }
 
 .hoja-carta {
     height: 100%;
-    padding: 28px 22px;
+    padding: 24px 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Scrollbar personalizada para el interior */
 .hoja-carta::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 .hoja-carta::-webkit-scrollbar-thumb {
     background: #e0d4c1;
@@ -381,8 +406,8 @@ body.tarjeta-abierta .card-scene {
 .encabezado-carta {
     text-align: center;
     border-bottom: 2px solid rgba(223, 186, 83, 0.35);
-    padding-bottom: 10px;
-    margin-bottom: 14px;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .fecha-especial {
@@ -396,14 +421,14 @@ body.tarjeta-abierta .card-scene {
 
 .saludo-carta {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.85rem;
+    font-size: 1.75rem;
     color: #9c27b0;
     font-weight: 700;
 }
 
 .cuerpo-carta {
-    font-size: 0.86rem;
-    line-height: 1.62;
+    font-size: 0.85rem;
+    line-height: 1.58;
     color: #333333;
     text-align: justify;
     flex-grow: 1;
@@ -424,86 +449,160 @@ body.tarjeta-abierta .card-scene {
     font-weight: 600;
 }
 
-.despedida-carta {
-    font-weight: 600;
-    color: #6a1b9a !important;
-    text-indent: 0 !important;
-    text-align: center !important;
-    margin-top: 12px;
-    font-size: 0.92rem;
-}
-
 .pie-carta {
     text-align: right;
-    margin-top: 12px;
+    margin-top: 8px;
     font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
     color: #6c5ce7;
 }
 
-/* Adaptabilidad y Responsive */
+/* ===================================================
+   RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   =================================================== */
+
+/* Tablets */
 @media (max-width: 820px) {
-    .card-scene {
-        width: 320px;
-        height: 470px;
+    :root {
+        --card-width: 300px;
+        --card-height: 450px;
     }
     body.tarjeta-abierta .card-scene {
-        transform: translateX(160px) scale(0.92);
+        transform: translateX(150px) scale(0.92);
     }
     .saludo-carta {
-        font-size: 1.7rem;
+        font-size: 1.55rem;
     }
     .cuerpo-carta {
-        font-size: 0.82rem;
-        line-height: 1.52;
+        font-size: 0.8rem;
+        line-height: 1.48;
     }
 }
 
-@media (max-width: 680px) {
-    .card-scene {
-        width: 270px;
-        height: 430px;
+/* Tablets pequeñas y pantallas medianas */
+@media (max-width: 660px) {
+    :root {
+        --card-width: 250px;
+        --card-height: 410px;
     }
     body.tarjeta-abierta .card-scene {
-        transform: translateX(135px) scale(0.85);
+        transform: translateX(125px) scale(0.85);
     }
     .frase-inspiradora {
-        font-size: 0.98rem;
+        font-size: 0.92rem;
     }
     .dedicatoria-corta {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
     }
     .cuerpo-carta {
-        font-size: 0.78rem;
-        line-height: 1.45;
+        font-size: 0.75rem;
+        line-height: 1.42;
     }
 }
 
-@media (max-width: 520px) {
+/* Teléfonos Móviles (Portrait) */
+@media (max-width: 540px) {
+    :root {
+        --card-width: 175px;
+        --card-height: 440px;
+    }
+
     .card-scene {
-        width: 220px;
-        height: 380px;
+        width: min(320px, 86vw);
+        height: min(460px, 66vh);
+        margin: 10px auto;
     }
+
+    /* Al abrirse en móvil, se adapta fluidamente a 2 páginas lado a lado que caben 100% en la pantalla */
     body.tarjeta-abierta .card-scene {
-        transform: translateX(110px) scale(0.78);
+        width: 175px;
+        height: 440px;
+        transform: translateX(87.5px) scale(calc((100vw - 20px) / 350));
     }
-    .hoja-carta {
-        padding: 18px 14px;
+
+    .hint-text {
+        top: 14px;
+        font-size: 0.76rem;
+        padding: 6px 14px;
+        max-width: calc(100vw - 90px);
     }
+
+    .btn-musica {
+        top: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+
     .back-portada {
-        padding: 16px;
+        padding: 16px 10px;
     }
+
+    .decoracion-borde-interior {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+    }
+
+    .icono-decorativo {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .frase-inspiradora {
+        font-size: 0.82rem;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+
+    .decoracion-lineas {
+        font-size: 0.72rem;
+        letter-spacing: 3px;
+        margin-bottom: 10px;
+    }
+
+    .dedicatoria-corta {
+        font-size: 0.72rem;
+        line-height: 1.36;
+        margin-bottom: 10px;
+    }
+
+    .icono-corazon {
+        font-size: 1.25rem;
+    }
+
+    .hoja-carta {
+        padding: 14px 11px;
+    }
+
+    .encabezado-carta {
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+    }
+
     .saludo-carta {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
     }
+
+    .fecha-especial {
+        font-size: 0.65rem;
+    }
+
     .cuerpo-carta {
         font-size: 0.72rem;
-        line-height: 1.38;
+        line-height: 1.42;
     }
-    .frase-inspiradora {
-        font-size: 0.85rem;
+
+    .cuerpo-carta p {
+        margin-bottom: 6px;
+        text-indent: 6px;
     }
-    .dedicatoria-corta {
-        font-size: 0.74rem;
+
+    .sello-cera {
+        margin-bottom: 18px;
+        padding: 8px 18px;
+        font-size: 0.84rem;
     }
 }
